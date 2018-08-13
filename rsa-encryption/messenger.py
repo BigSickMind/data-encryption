@@ -29,7 +29,7 @@ def prepared_list(data):
     if crc_recv != crc:
         print("\nCorrupted message with Message-ID {}, some packages were lost\n".format(data[0]))
     else:
-        from rsa import receive_message
+        from .rsa import receive_message
         decrypted_message = receive_message(msg_recv, data[2])
         print("\nMessage-ID: {}".format(data[0]))
         print("From: {}".format(data[1]))
@@ -195,7 +195,7 @@ def add_user_to_group(user, group):
 
 
 def wtite_msg_to_user(from_msg, to_msg, msg, date, time):
-    from rsa import send_message
+    from .rsa import send_message
     crypted_message = send_message(msg, to_msg)
     msg_id = read_msg_id()
     from zlib import crc32
@@ -393,7 +393,7 @@ def auth():
                         print("Incorrect password, please, try again\n")
                         continue
                     if check_users(user):
-                        from rsa import get_keys
+                        from .rsa import get_keys
                         pubkey, privkey = get_keys()
                         add_user(user, passwd, 'u', 'None', privkey)
                         add_public_key(user, pubkey)
@@ -557,11 +557,11 @@ def auth():
 if __name__ == "__main__":
     check = check_users("admin")
     if check:
-        from rsa import get_keys, generate_table
+        from .rsa import get_keys, generate_table
         generate_table()
         pubkey, privkey = get_keys()
         add_user("admin", "admin", 'a', 'admin', privkey)
         add_public_key("admin", pubkey)
         write_msg_id(1)
-    print("Welcome to Letegram!\n")
+    print("Welcome to Messenger!\n")
     auth()

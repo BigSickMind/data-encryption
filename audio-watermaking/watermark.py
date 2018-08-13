@@ -34,7 +34,6 @@ def lsb_watermark(cover_filepath, watermark_data, watermarked_output_path):
     encoded_samples = []
 
     watermark_position = 0
-    n = 0
     for sample in samples:
         encoded_sample = sample
 
@@ -118,7 +117,6 @@ if __name__ == "__main__":
     if command == 'watermark' or command == 'w' or command == '1':
         print("Enter the message that you want to add to audio:\n")
         message = input()
-        #message = "this is an example of steganography in audio!"
         print()
         print("Choose audio file:\n")
         cover_audio = input()

@@ -1,5 +1,5 @@
 def generate_table():
-    from eds import making_code
+    from .messenger import making_code
     with open("coded_table.bin", 'ab') as output_table:
         count = 1
         for i in range(ord('a'), ord('z') + 1):

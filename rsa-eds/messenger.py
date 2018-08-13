@@ -24,7 +24,7 @@ def prepared_list(data):
     msg_eds = data[3].split("c:::")
     msg = msg_eds[0]
     encrypted_eds = msg_eds[1]
-    from eds import receive_eds
+    from .eds import receive_eds
     eds = receive_eds(encrypted_eds, data[1])
     if msg != eds:
         print("\nCorrupted message with Message-ID {}, some packages were lost\n".format(data[0]))
@@ -193,7 +193,7 @@ def add_user_to_group(user, group):
 
 
 def write_msg_to_user(from_msg, to_msg, msg, date, time):
-    from eds import send_eds
+    from .eds import send_eds
     encrypted_eds = send_eds(msg, from_msg)
     msg_id = read_msg_id()
     msg += "c:::"
@@ -389,7 +389,7 @@ def auth():
                         print("Incorrect password, please, try again\n")
                         continue
                     if check_users(user):
-                        from rsa import get_keys
+                        from .eds import get_keys
                         pubkey, privkey = get_keys()
                         add_user(user, passwd, 'u', 'None', privkey)
                         add_public_key(user, pubkey)
@@ -553,11 +553,11 @@ def auth():
 if __name__ == "__main__":
     check = check_users("admin")
     if check:
-        from rsa import get_keys, generate_table
+        from .eds import get_keys, generate_table
         generate_table()
         pubkey, privkey = get_keys()
         add_user("admin", "admin", 'a', 'admin', privkey)
         add_public_key("admin", pubkey)
         write_msg_id(1)
-    print("Welcome to Letegram!\n")
+    print("Welcome to Messenger!\n")
     auth()
